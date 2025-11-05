@@ -26,7 +26,7 @@ export default function SellerPage({ params }) {
             }
         }
         load()
-    }, [])
+    }, [id])
 
 
 

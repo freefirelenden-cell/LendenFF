@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LogOut, PlusCircle, Settings, User, BarChart2, Home } from "lucide-react";
 import { SignOutButton } from "@clerk/nextjs";
+import Image from "next/image";
 
 export default function DashboardLayout({ children }) {
   const pathname = usePathname();
@@ -78,7 +79,7 @@ export default function DashboardLayout({ children }) {
             Dashboard
           </h1>
           <div className="flex items-center gap-3">
-            <img
+            <Image
               src="/images/avatar.png"
               alt="profile"
               className="w-10 h-10 rounded-full border border-[var(--color-border)]"
