@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LogOut, PlusCircle, Settings, User, BarChart2, Home } from "lucide-react";
 import { SignOutButton } from "@clerk/nextjs";
-import Image from "next/image";
+
 
 export default function DashboardLayout({ children }) {
   const pathname = usePathname();
