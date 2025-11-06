@@ -1,15 +1,11 @@
-"use client"
+"use client";
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
 export default function PaymentSuccess() {
-  const searchParams = useSearchParams();
-  const sessionId = searchParams.get('session_id');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Yahan payment verification kar sakte ho
     setTimeout(() => setLoading(false), 2000);
   }, []);
 
