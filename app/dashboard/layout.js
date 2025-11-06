@@ -78,14 +78,7 @@ export default function DashboardLayout({ children }) {
           <h1 className="text-xl font-semibold text-[var(--color-brand-yellow)]">
             Dashboard
           </h1>
-          <div className="flex items-center gap-3">
-            <Image
-              src="/images/avatar.png"
-              alt="profile"
-              className="w-10 h-10 rounded-full border border-[var(--color-border)]"
-            />
-            <span className="text-sm font-medium text-[var(--color-text)]">Seller</span>
-          </div>
+       
         </header>
 
         {/* Main Page Content */}
