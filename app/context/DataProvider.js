@@ -27,13 +27,13 @@ export default function DataProvider({ children }) {
   // }, []);
 
 
-  // useEffect(() => {
-  //   getNewest(6)
-  //     .then(data =>{ 
-  //       setFeaturedIsLoaded(true)
-  //       setFeatured(data)})
-  //     .catch(err => console.log(err))
-  // }, [])
+  useEffect(() => {
+    getNewest(6)
+      .then(data =>{ 
+        setFeaturedIsLoaded(true)
+        setFeatured(data)})
+      .catch(err => console.log(err))
+  }, [])
 
   
 

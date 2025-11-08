@@ -14,6 +14,11 @@ export default function DashboardPage() {
 
 
 
+
+  if (!isLoadedUserCreatedAccounts) {
+    return <LoadingSpinner size="xl" showText={true} text="Loading Dashboard..." />;
+  }
+
   // 🧮 Summary Stats
   const total = userCreatedAccounts.length;
   const pending = userCreatedAccounts.filter((a) => a.status === "pending").length;
@@ -23,9 +28,7 @@ export default function DashboardPage() {
     .reduce((sum, a) => sum + Number(a.price || 0), 0);
 
 
-  if (!isLoadedUserCreatedAccounts) {
-    return <LoadingSpinner size="xl" showText={true} text="Loading Dashboard..." />;
-  }
+  
 
   return (
     <section className="text-[var(--color-text)] space-y-10">
@@ -75,7 +78,7 @@ export default function DashboardPage() {
           Recent Accounts
         </h2>
 
-        {userCreatedAccounts.length === 0 ? (
+        {userCreatedAccounts?.length === 0 ? (
           <p className="text-[var(--color-text-secondary)] text-center py-8">
             You haven't added any accounts yet.
           </p>
@@ -90,7 +93,7 @@ export default function DashboardPage() {
               </tr>
             </thead>
             <tbody>
-              {userCreatedAccounts.slice(0, 5).map((a) => (
+              {userCreatedAccounts?.slice(0, 5).map((a) => (
                 <tr
                   key={a._id}
                   className="border-b border-[var(--color-border)] hover:bg-[var(--color-hover)] transition"

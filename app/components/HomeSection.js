@@ -38,7 +38,7 @@ export default function HomeSection() {
 
         {featuredIsLoaded ? (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featured.map((account) => (
+            {featured?.map((account) => (
               <AccountCard key={account._id} account={account} />
             ))}
           </div>
