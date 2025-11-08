@@ -19,21 +19,21 @@ export default function DataProvider({ children }) {
 
 
 
-  useEffect(() => {
-    getAccounts()
-      .then(data => {
-        setAccounts(data)})
-      .catch(err => console.log(err))
-  }, []);
+  // useEffect(() => {
+  //   getAccounts()
+  //     .then(data => {
+  //       setAccounts(data)})
+  //     .catch(err => console.log(err))
+  // }, []);
 
 
-  useEffect(() => {
-    getNewest(6)
-      .then(data =>{ 
-        setFeaturedIsLoaded(true)
-        setFeatured(data)})
-      .catch(err => console.log(err))
-  }, [])
+  // useEffect(() => {
+  //   getNewest(6)
+  //     .then(data =>{ 
+  //       setFeaturedIsLoaded(true)
+  //       setFeatured(data)})
+  //     .catch(err => console.log(err))
+  // }, [])
 
   
 
