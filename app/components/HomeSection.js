@@ -43,7 +43,7 @@ export default function HomeSection() {
           </div>
         ) : (
           <div className="flex items-center justify-center h-64">
-            <LoadingSpinner />
+            <LoadingSpinner size="xl" />
           </div>
         )}
 
