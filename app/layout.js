@@ -2,6 +2,9 @@
 import Providers from "./providers.js";
 import './globals.css'
 import Navbar from "./components/Navbar.js";
+import Footer from "./components/Footer.js";
+import DataProvider from "./context/DataProvider.js";
+
 
 export const metadata = {
   title: "NextAuth GitHub Login - Minimal",
@@ -12,8 +15,11 @@ export default function RootLayout({ children }) {
     <Providers>
       <html lang="en">
         <body>
-          <Navbar/>
-          {children}
+          <DataProvider>
+            <Navbar />
+            {children}
+            <Footer />
+          </DataProvider>
         </body>
       </html>
     </Providers>
