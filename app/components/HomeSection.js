@@ -7,7 +7,7 @@ import LoadingSpinner from "./ui/LoadingSpinner";
 
 
 export default function HomeSection() {
-  const { featured, featuredIsLoaded } = useContext(myContext)
+  const { latestAccounts, isLoadedLatestAccounts } = useContext(myContext)
 
   return (
     <section className="bg-[var(--color-bg)] text-[var(--color-text)] py-20 transition-colors duration-300">
@@ -35,9 +35,9 @@ export default function HomeSection() {
         </h2>
 
 
-        {featuredIsLoaded ? (
+        {isLoadedLatestAccounts ? (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featured?.map((account) => (
+            {latestAccounts?.map((account) => (
               <AccountCard key={account._id} account={account} />
             ))}
           </div>

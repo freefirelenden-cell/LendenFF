@@ -11,8 +11,8 @@ export default function DataProvider({ children }) {
     //   const [isLoaded, setIsLoaded] = useState(false);
     //   const [isSignedIn, setIsSignedIn] = useState(false)
     //   const [accounts, setAccounts] = useState([])
-    const [featured, setFeatured] = useState([]);
-    const [featuredIsLoaded, setFeaturedIsLoaded] = useState(false)
+        const [latestAccounts, setLatestAccounts] = useState([]);
+        const [isLoadedLatestAccounts, setIsLoadedLatestAccounts] = useState(false)
     //   const [userCreatedAccounts, setUserCreatedAccounts] = useState([])
     //   const [isLoadedUserCreatedAccounts, setIsLoadedUserCreatedAccounts] = useState(false)
 
@@ -30,8 +30,8 @@ export default function DataProvider({ children }) {
     useEffect(() => {
         getNewest(6)
             .then(data => {
-                setFeaturedIsLoaded(true)
-                setFeatured(data)
+                setIsLoadedLatestAccounts(true)
+                setLatestAccounts(data)
             })
             .catch(err => console.log(err))
     }, [])
@@ -56,8 +56,8 @@ export default function DataProvider({ children }) {
         <myContext.Provider
             value={{
                 // accounts, 
-                featured,
-                featuredIsLoaded,
+                latestAccounts,
+                isLoadedLatestAccounts,
                 // userCreatedAccounts,
                 // isLoadedUserCreatedAccounts,
                 // user, isLoaded, isSignedIn
