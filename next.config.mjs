@@ -7,11 +7,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "img.clerk.com",
-      },
-      {
-        protocol: "https",
-        hostname: "images.clerk.dev", // Clerk sometimes uses this domain too
+        hostname: "lh3.googleusercontent.com", // Google profile pics
       },
         {
         protocol: "https",
