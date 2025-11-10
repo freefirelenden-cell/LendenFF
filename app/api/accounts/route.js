@@ -9,7 +9,6 @@ export async function GET(req) {
   try {
     await databaseConnection();
 
-    console.log("here is all correct")
     const { searchParams } = new URL(req.url);
     const userId = searchParams.get("userId");
     const sortBy = searchParams.get("sortBy");
