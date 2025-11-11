@@ -1,7 +1,8 @@
 "use client"
 import { useEffect, useState } from "react";
 import { myContext } from "./context"
-import { getAccounts } from "@/lib/apiClient";
+import {
+      getNewest } from "@/lib/apiClient";
 // import { usePathname } from "next/navigation";
 
 export default function DataProvider({ children }) {
@@ -28,14 +29,13 @@ export default function DataProvider({ children }) {
 
 
     useEffect(() => {
-        getAccounts()
+        getNewest(6)
             .then(data => {
                 setIsLoadedLatestAccounts(true)
                 setLatestAccounts(data)
                 console.log(data)
             })
             .catch(err => console.log(err))
-        
     }, [])
 
 
