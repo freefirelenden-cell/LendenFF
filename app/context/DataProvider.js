@@ -2,7 +2,8 @@
 import { useEffect, useState } from "react";
 import { myContext } from "./context"
 import {
-      getNewest } from "@/lib/apiClient";
+    getNewest
+} from "@/lib/apiClient";
 // import { usePathname } from "next/navigation";
 
 export default function DataProvider({ children }) {
@@ -12,8 +13,8 @@ export default function DataProvider({ children }) {
     //   const [isLoaded, setIsLoaded] = useState(false);
     //   const [isSignedIn, setIsSignedIn] = useState(false)
     //   const [accounts, setAccounts] = useState([])
-        const [latestAccounts, setLatestAccounts] = useState([]);
-        const [isLoadedLatestAccounts, setIsLoadedLatestAccounts] = useState(false)
+    const [latestAccounts, setLatestAccounts] = useState([]);
+    const [isLoadedLatestAccounts, setIsLoadedLatestAccounts] = useState(false)
     //   const [userCreatedAccounts, setUserCreatedAccounts] = useState([])
     //   const [isLoadedUserCreatedAccounts, setIsLoadedUserCreatedAccounts] = useState(false)
 
@@ -33,7 +34,6 @@ export default function DataProvider({ children }) {
             .then(data => {
                 setIsLoadedLatestAccounts(true)
                 setLatestAccounts(data)
-                console.log(data)
             })
             .catch(err => console.log(err))
     }, [])
