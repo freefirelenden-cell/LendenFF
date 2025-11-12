@@ -1,7 +1,7 @@
 // app/layout.js
 import Providers from "./providers.js";
 import './globals.css'
-import Navbar from "./components/Navbar.js";
+// import Navbar from "./components/Navbar.js";
 import Footer from "./components/Footer.js";
 import DataProvider from "./context/DataProvider.js";
 
@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
       <html lang="en">
         <body>
           <DataProvider>
-            <Navbar />
+            {/* <Navbar /> */}
             {children}
             <Footer />
           </DataProvider>

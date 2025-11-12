@@ -8,6 +8,7 @@ import LoadingSpinner from "./ui/LoadingSpinner";
 
 export default function HomeSection() {
   const { latestAccounts, isLoadedLatestAccounts } = useContext(myContext)
+  console.log(latestAccounts)
 
   return (
     <section className="bg-[var(--color-bg)] text-[var(--color-text)] py-20 transition-colors duration-300">
