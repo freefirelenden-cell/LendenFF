@@ -47,6 +47,7 @@ export default function Navbar() {
                 {/* 🔹 Logo */}
                 <Link
                     href="/"
+                    prefetch={false}
                     className="text-2xl font-extrabold bg-gradient-to-r from-[var(--color-brand-yellow)] to-[var(--color-brand-gold)] text-transparent bg-clip-text"
                 >
                     FreeFireStore
@@ -56,6 +57,7 @@ export default function Navbar() {
                 <div className="hidden md:flex space-x-8 font-medium">
                     {links.map(({ label, path }) => (
                         <Link
+                            prefetch={false}
                             key={label}
                             href={path}
                             className="text-[var(--color-link)] hover:text-[var(--color-hover)] transition-colors duration-200"
@@ -102,6 +104,7 @@ export default function Navbar() {
                             <Link
                                 key={label}
                                 href={path}
+                                prefetch={false}
                                 onClick={() => setOpen(false)}
                                 className="text-[var(--color-link)] hover:text-[var(--color-hover)] transition-colors"
                             >
