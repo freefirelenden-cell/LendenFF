@@ -15,12 +15,14 @@ export default function FinalCTA() {
         <div className="flex flex-wrap justify-center gap-6">
           <Link
             href="/accounts"
+            prefetch={false}
             className="bg-[var(--color-brand-yellow)] text-black font-semibold px-8 py-3 rounded-xl hover:bg-[var(--color-brand-gold)] hover:scale-105 transition-transform duration-300"
           >
             🔥 Browse Accounts
           </Link>
 
           <Link
+            prefetch={false}
             href="/dashboard/accounts/new"
             className="bg-[var(--color-bg)] border border-[var(--color-brand-yellow)] text-[var(--color-brand-yellow)] font-semibold px-8 py-3 rounded-xl hover:bg-[var(--color-brand-yellow)] hover:text-black hover:scale-105 transition-transform duration-300"
           >

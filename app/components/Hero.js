@@ -18,6 +18,7 @@ export default function Hero() {
 
         <Link
           href="/accounts"
+          prefetch={false}
           className="inline-block bg-[var(--color-accent-yellow)] text-black font-semibold px-8 py-3 rounded-xl hover:bg-[var(--color-accent-gold)] hover:scale-105 transition-transform duration-200"
         >
           Browse Verified Accounts

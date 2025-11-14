@@ -39,6 +39,7 @@ export default function AccountCard({ account }) {
 
         <Link
           href={`/accounts/${account._id}`}
+          prefetch={false}
           className="block text-center bg-[var(--color-brand-yellow)] text-black font-semibold py-2 rounded-lg hover:bg-[var(--color-brand-gold)] transition"
         >
           View Details

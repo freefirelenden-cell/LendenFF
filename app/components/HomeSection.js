@@ -8,7 +8,6 @@ import LoadingSpinner from "./ui/LoadingSpinner";
 
 export default function HomeSection() {
   const { latestAccounts, isLoadedLatestAccounts } = useContext(myContext)
-  console.log(latestAccounts)
 
   return (
     <section className="bg-[var(--color-bg)] text-[var(--color-text)] py-20 transition-colors duration-300">
@@ -23,6 +22,7 @@ export default function HomeSection() {
         </p>
         <Link
           href="/accounts"
+          prefetch={false}
           className="inline-block bg-[var(--color-brand-yellow)] text-black font-semibold px-8 py-3 rounded-xl hover:bg-[var(--color-brand-gold)] hover:scale-105 transition-transform"
         >
           Browse All Accounts
@@ -52,6 +52,7 @@ export default function HomeSection() {
         <div className="text-center mt-12">
           <Link
             href="/accounts"
+            prefetch={false}
             className="inline-block bg-[var(--color-brand-yellow)] text-black font-semibold px-8 py-3 rounded-xl hover:bg-[var(--color-brand-gold)] hover:scale-105 transition-transform"
           >
             Explore More Accounts →
