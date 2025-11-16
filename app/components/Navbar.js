@@ -93,11 +93,8 @@ export default function Navbar() {
                         >
                             {open ? <X size={28} /> : <Menu size={28} />}
                         </button>
-                        {isLoadedUserData ? (
-                            <ProfileImage userData={userData} isLoadedUserData={isLoadedUserData} />
-                        ) : (
+                       
                             <SignInButton />
-                        )}
                     </div>
 
 

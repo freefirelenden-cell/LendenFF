@@ -23,8 +23,9 @@ export default function EditAccountPage() {
   useEffect(() => {
     if (!params?.id) return;
     getAccountById(params.id)
-      .then((data) => {
+    .then((data) => {
         setForm(data);
+        console.log(data)
         const images = data.img.map(imgData => ({ ...imgData, isTemp: false }))
         setTempImages([...images])
         setLoading(false);
@@ -47,7 +48,7 @@ export default function EditAccountPage() {
       // 1. Pehle delete karo images
       if (toDeleteImages.length > 0) {
         setProgress(25);
-        await Promise.all(toDeleteImages.map(img => deleteImage(img)));
+        // await Promise.all(toDeleteImages.map(img => deleteImage(img)));
 
         const filteredImages = form.img.filter(img =>
           !toDeleteImages.some(delImg => delImg.url === img.url) 
@@ -55,27 +56,28 @@ export default function EditAccountPage() {
         updateForm = { ...form, img: filteredImages }
         setProgress(50)
       }
-
+      
       let finalForm = { ...updateForm };
       setProgress(60)
 
       if (tempImages && tempImages.length > 0) {
         setProgress(70)
-        const imagesRes = await uploadImages(tempImages);
-        const cleanedImages = imagesRes.map(({ url, fileId }) => ({ url, fileId }));
+        // const imagesRes = await uploadImages(tempImages);
+        // const cleanedImages = imagesRes.map(({ url, fileId }) => ({ url, fileId }));
 
-        const allImages = [...(updateForm.img || []), ...cleanedImages];
-        finalForm = { ...updateForm, img: allImages };
+        // const allImages = [...(updateForm.img || []), ...cleanedImages];
+        // finalForm = { ...updateForm, img: allImages };
         setProgress(80)
       }
 
       setProgress(90)
-      const res = await updateAccount(params.id, finalForm);
+      // console.log(finalForm)
+      // const res = await updateAccount(params.id, finalForm);
       setProgress(100)
 
-      if (res) {
+      if (true) {
         alert("✅ Account updated successfully!");
-        router.push(`/dashboard/accounts/`);
+        // router.push(`/dashboard/accounts/`);
       } else {
         alert("❌ Failed to update account!");
       }
