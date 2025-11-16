@@ -19,9 +19,8 @@ export async function POST(req) {
       image: body.image,
     });
     await newUser.save();
-    console.log(newUser)
 
-    return NextResponse.json({ message: "User synced", data: body });
+    return NextResponse.json({ message: "User synced", data: newUser });
   }
 
   return NextResponse.json({ message: "User already exists" });

@@ -48,7 +48,7 @@ export default function EditAccountPage() {
       // 1. Pehle delete karo images
       if (toDeleteImages.length > 0) {
         setProgress(25);
-        // await Promise.all(toDeleteImages.map(img => deleteImage(img)));
+        await Promise.all(toDeleteImages.map(img => deleteImage(img)));
 
         const filteredImages = form.img.filter(img =>
           !toDeleteImages.some(delImg => delImg.url === img.url) 
@@ -62,22 +62,21 @@ export default function EditAccountPage() {
 
       if (tempImages && tempImages.length > 0) {
         setProgress(70)
-        // const imagesRes = await uploadImages(tempImages);
-        // const cleanedImages = imagesRes.map(({ url, fileId }) => ({ url, fileId }));
+        const imagesRes = await uploadImages(tempImages);
+        const cleanedImages = imagesRes.map(({ url, fileId }) => ({ url, fileId }));
 
-        // const allImages = [...(updateForm.img || []), ...cleanedImages];
-        // finalForm = { ...updateForm, img: allImages };
+        const allImages = [...(updateForm.img || []), ...cleanedImages];
+        finalForm = { ...updateForm, img: allImages };
         setProgress(80)
       }
 
       setProgress(90)
-      // console.log(finalForm)
-      // const res = await updateAccount(params.id, finalForm);
+      const res = await updateAccount(params.id, finalForm);
       setProgress(100)
 
-      if (true) {
+      if (res?.success) {
         alert("✅ Account updated successfully!");
-        // router.push(`/dashboard/accounts/`);
+        router.push(`/dashboard/accounts/`);
       } else {
         alert("❌ Failed to update account!");
       }

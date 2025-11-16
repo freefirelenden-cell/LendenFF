@@ -42,10 +42,10 @@ export async function PUT(req, { params }) {
           email: body.email,
           password: body.password,
           stats: {
-            level: body.level,
-            matches: body.matches,
-            kdr: body.kdr,
-            badges: body.badges,
+            level: body.stats.level,
+            matches: body.stats.matches,
+            kdr: body.stats.kdr,
+            badges: body.stats.badges,
           },
           img: body.img || [],
         },
@@ -54,16 +54,16 @@ export async function PUT(req, { params }) {
     );
 
     if (!updatedAccount) {
-      return NextResponse.json({ error: "Account not found" }, { status: 404 });
+      return NextResponse.json({success: false, error: "Account not found" }, { status: 404 });
     }
 
     return NextResponse.json(
-      { message: "Account updated successfully", account: updatedAccount },
+      { success: true, message: "Account updated successfully", account: updatedAccount },
       { status: 200 }
     );
   } catch (error) {
     console.error("PUT /api/accounts/[id] error:", error);
-    return NextResponse.json({ error: "Failed to update account" }, { status: 500 });
+    return NextResponse.json({success: false, error: "Failed to update account" }, { status: 500 });
   }
 }
 
