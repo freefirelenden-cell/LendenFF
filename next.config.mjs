@@ -1,6 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // output: 'export',
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -8,11 +7,11 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "lh3.googleusercontent.com", // Google profile pics
+        hostname: "lh3.googleusercontent.com",
       },
         {
         protocol: "https",
-        hostname: "ik.imagekit.io", // ✅ Correct hostname for ImageKit
+        hostname: "ik.imagekit.io", 
       },
     ],
   },

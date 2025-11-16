@@ -5,9 +5,12 @@ import Link from "next/link";
 import { Menu, X, Sun, Moon } from "lucide-react";
 import SignInButton from "./SignInButton";
 import ProfileImage from "./ProfileImage";
+import { myContext } from "../context/context";
+import { useContext } from 'react'
 
 
 export default function Navbar() {
+    const { userData, isLoadedUserData } = useContext(myContext);
     const [open, setOpen] = useState(false);
     const [darkMode, setDarkMode] = useState(true);
     const links = [
@@ -18,7 +21,7 @@ export default function Navbar() {
         { label: "Dashboard", path: "/dashboard" },
     ]
 
-    
+
     useEffect(() => {
         const savedTheme = localStorage.getItem("theme");
         if (savedTheme === "light") {
@@ -90,7 +93,11 @@ export default function Navbar() {
                         >
                             {open ? <X size={28} /> : <Menu size={28} />}
                         </button>
-                        <ProfileImage/>
+                        {isLoadedUserData ? (
+                            <ProfileImage userData={userData} isLoadedUserData={isLoadedUserData} />
+                        ) : (
+                            <SignInButton />
+                        )}
                     </div>
 
 
@@ -98,22 +105,22 @@ export default function Navbar() {
             </div>
 
             {/* 🔹 Mobile Menu */}
-                {open && (
-                    <div className="md:hidden bg-[var(--color-bg)] border-t border-[var(--color-border)] flex flex-col space-y-4 p-4">
-                        {links.map(({ label, path }) => (
-                            <Link
-                                key={label}
-                                href={path}
-                                prefetch={false}
-                                onClick={() => setOpen(false)}
-                                className="text-[var(--color-link)] hover:text-[var(--color-hover)] transition-colors"
-                            >
-                                {label}
-                            </Link>
-                        ))}
-                        <SignInButton/>
-                    </div>
-                )}
+            {open && (
+                <div className="md:hidden bg-[var(--color-bg)] border-t border-[var(--color-border)] flex flex-col space-y-4 p-4">
+                    {links.map(({ label, path }) => (
+                        <Link
+                            key={label}
+                            href={path}
+                            prefetch={false}
+                            onClick={() => setOpen(false)}
+                            className="text-[var(--color-link)] hover:text-[var(--color-hover)] transition-colors"
+                        >
+                            {label}
+                        </Link>
+                    ))}
+                    <SignInButton />
+                </div>
+            )}
 
         </nav>
     );

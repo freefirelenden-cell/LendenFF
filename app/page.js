@@ -9,12 +9,12 @@ import TrustBadges from "./components/TrustBadges";
 export default function HomePage() {
 
   return (
-  <div>
-         <Hero/>
-   <TrustBadges />
-   <HomeSection/>
-    <FAQ/>
-    <FinalCTA/> 
-  </div>
+    <div>
+      <Hero />
+      <TrustBadges />
+      <HomeSection />
+      <FAQ />
+      <FinalCTA />
+    </div>
   );
 }
