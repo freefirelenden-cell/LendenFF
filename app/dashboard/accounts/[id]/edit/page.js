@@ -25,7 +25,6 @@ export default function EditAccountPage() {
     getAccountById(params.id)
     .then((data) => {
         setForm(data);
-        console.log(data)
         const images = data.img.map(imgData => ({ ...imgData, isTemp: false }))
         setTempImages([...images])
         setLoading(false);
