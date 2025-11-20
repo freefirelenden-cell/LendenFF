@@ -6,7 +6,8 @@ import {
     getAccounts,
 } from "@/lib/apiClient";
 import { usePathname } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
+
 
 
 
@@ -25,10 +26,10 @@ export default function DataProvider({ children }) {
     const [isLoadedLatestAccounts, setIsLoadedLatestAccounts] = useState(false)
     const [userCreatedAccounts, setUserCreatedAccounts] = useState([])
     const [isLoadedUserCreatedAccounts, setIsLoadedUserCreatedAccounts] = useState(false);
-    
 
 
-  
+
+
     useEffect(() => {
         if (!pathname.startsWith("/accounts")) return;
         getAccounts()
@@ -78,8 +79,10 @@ export default function DataProvider({ children }) {
                 userData,
                 isLoadedUserData,
                 isSignedIn,
-                 session,
-                  status
+                session,
+                status,
+                signIn,
+                signOut,
             }}>
             {children}
         </myContext.Provider>

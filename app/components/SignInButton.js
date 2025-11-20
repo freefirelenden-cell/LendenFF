@@ -1,39 +1,29 @@
 "use client";
 
-import { signIn, signOut, useSession } from "next-auth/react";
-import LoadingSpinner from "./ui/LoadingSpinner";
+import { myContext } from "../context/context";
+import { useContext } from "react"
+
 
 export default function SignInButton({ className = "" }) {
-    const { data: session, status } = useSession();
+    const { isSignedIn, signIn, signOut, } = useContext(myContext)
 
-    if (status === "loading") {
-        return (
-            <LoadingSpinner size="sm" />
-        );
+
+    const handleClick = () => {
+        if (!isSignedIn) {
+            signIn("google");
+            return;
+        }
+        signOut()
     }
-
     return (
         <div className={`flex flex-col items-center w-max ${className}`}>
 
-            {!session ? (
-                <button
-                    onClick={() => signIn("google")}
-                    className="bg-red-500 text-white px-6 py-2 rounded-md hover:bg-red-600 transition"
-                >
-                    SignIn
-                </button>
-            ) : (
-                <button
-                    onClick={() => signOut()}
-                    className="bg-gray-700 text-white px-6 py-2 rounded-md hover:bg-gray-800 transition"
-                >
-                    SignOut
-                </button>
-
-            )}
-
-
-
+            <button
+                onClick={handleClick}
+                className="bg-red-500 text-white px-6 py-2 rounded-md hover:bg-red-600 transition"
+            >
+                {!isSignedIn ? "SignIn" : "SignOut"}
+            </button>
         </div>
     );
 }

@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X, Sun, Moon } from "lucide-react";
 import SignInButton from "./SignInButton";
-import ProfileImage from "./ProfileImage";
 import { myContext } from "../context/context";
 import { useContext } from 'react'
 
