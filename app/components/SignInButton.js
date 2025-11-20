@@ -5,16 +5,11 @@ import { useContext } from "react"
 
 
 export default function SignInButton({ className = "" }) {
-    const { isSignedIn, signIn, signOut, } = useContext(myContext)
+    const { isSignedIn, signIn, signOut } = useContext(myContext)
 
 
-    const handleClick = () => {
-        if (!isSignedIn) {
-            signIn("google");
-            return;
-        }
-        signOut()
-    }
+    const handleClick = () => !isSignedIn ? signIn("google") : signOut()
+
     return (
         <div className={`flex flex-col items-center w-max ${className}`}>
 

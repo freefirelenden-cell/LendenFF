@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar.js";
 import Footer from "./components/Footer.js";
 import DataProvider from "./context/DataProvider.js";
 import SyncUserToDB from "./components/SyncUserToDB.js";
+import CheckAuth from "./components/CheckAuth.js";
 
 
 
@@ -15,13 +16,15 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <Providers>
+    <Providers> 
       <html lang="en">
         <body>
           <DataProvider>
             <Navbar />
-            <SyncUserToDB/>
-            {children}
+            <SyncUserToDB />
+            <CheckAuth>
+              {children}
+            </CheckAuth>
             <Footer />
           </DataProvider>
         </body>
