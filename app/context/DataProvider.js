@@ -20,8 +20,6 @@ export default function DataProvider({ children }) {
     const isLoadedUserData = status !== "loading"
     const isSignedIn = status === "authenticated";
 
-    const [accounts, setAccounts] = useState([]);
-    const [isLoadedAccounts, setIsLoadedAccounts] = useState(false)
     const [latestAccounts, setLatestAccounts] = useState([]);
     const [isLoadedLatestAccounts, setIsLoadedLatestAccounts] = useState(false)
     const [userCreatedAccounts, setUserCreatedAccounts] = useState([])
@@ -30,15 +28,6 @@ export default function DataProvider({ children }) {
 
 
 
-    useEffect(() => {
-        if (!pathname.startsWith("/accounts")) return;
-        getAccounts()
-            .then(data => {
-                setAccounts(data)
-                setIsLoadedAccounts(true)
-            })
-            .catch(err => console.log(err))
-    }, [pathname]);
 
 
     useEffect(() => {
@@ -70,8 +59,6 @@ export default function DataProvider({ children }) {
     return (
         <myContext.Provider
             value={{
-                accounts,
-                isLoadedAccounts,
                 latestAccounts,
                 isLoadedLatestAccounts,
                 userCreatedAccounts,

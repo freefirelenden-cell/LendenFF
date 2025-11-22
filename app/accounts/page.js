@@ -1,15 +1,34 @@
 "use client"
-import { useContext } from "react";
+import { useState, useEffect } from "react";
 import AccountCard from "../components/AccountCard";
-import { myContext } from "../context/context.js";
 import LoadingSpinner from "../components/ui/LoadingSpinner";
-
-
+import { getAccounts } from "@/lib/apiClient";
+import Pagination from "../components/Pagination";
 
 export default function AccountsPage() {
-  const { accounts, isLoadedAccounts } = useContext(myContext);
 
-  if (!isLoadedAccounts) {
+  const [accounts, setAccounts] = useState([]);
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(0);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchAccounts(page);
+  }, [page]);
+
+  async function fetchAccounts(pageNum) {
+    setLoading(true);
+
+    const data = await getAccounts("", pageNum, 12);
+    setAccounts(data.accounts);
+    setTotal(data.totalCount);
+
+    setLoading(false);
+  }
+
+  const totalPages = Math.ceil(total / 12);
+
+  if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
         <LoadingSpinner size="xl" />
@@ -18,24 +37,34 @@ export default function AccountsPage() {
   }
 
   return (
-    <section className="bg-[var(--color-bg)] text-[var(--color-text)] min-h-screen py-20 transition-colors duration-300">
-      <div className="container mx-auto px-6">
-        <h1 className="text-4xl font-bold text-center text-[var(--color-brand-yellow)] mb-10">
-          Verified Free Fire Accounts
-        </h1>
+    <section className="py-20">
+      <div className="container mx-auto">
 
-        <p className="text-center text-[var(--color-link)] max-w-2xl mx-auto mb-12">
-          Browse through trusted, Gmail-verified Free Fire accounts.
-          Instant delivery and secure transfer — built for gamers who value safety and quality.
-        </p>
-
-        {/* 🧱 Grid of Account Cards */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-          {accounts?.map((account) => (
-            <AccountCard key={account._id} account={account} />
+          {accounts.map(acc => (
+            <AccountCard key={acc._id} account={acc} />
           ))}
         </div>
+
+        {loading && (
+          <div className="flex justify-center mt-6">
+            <LoadingSpinner size="lg" />
+          </div>
+        )}
+
+        {!loading && 
+          <Pagination
+            page={page}
+            totalPages={totalPages}
+            onChange={(p) => setPage(p)}
+          />
+        }
+
       </div>
     </section>
   );
 }
+
+
+
+

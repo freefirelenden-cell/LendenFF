@@ -12,7 +12,9 @@ export async function GET(req) {
     const { searchParams } = new URL(req.url);
     const userId = searchParams.get("userId");
     const sortBy = searchParams.get("sortBy");
-    const limit = Number(searchParams.get("limit"));
+    const page = Number(searchParams.get("page")) || 1;
+    const limit = Number(searchParams.get("limit")) || 12;
+    const skip = (page - 1) * limit;
 
     // 🔸 Filter logic
     const filter = userId ? { createdBy: userId } : {};
@@ -43,15 +45,19 @@ export async function GET(req) {
         break;
     }
 
-    // 🔸 Execute query
-    let query = Account.find(filter).sort(sortQuery);
-    if (limit && !isNaN(limit)) {
-      query = query.limit(limit);
-    }
+    let query = Account.find(filter)
+      .sort(sortQuery)
+      .skip(skip)
+      .limit(limit);
 
+    const totalCount = await Account.countDocuments(filter);
     const accounts = await query;
 
-    return NextResponse.json(accounts, { status: 200 });
+    return NextResponse.json(
+      { accounts, totalCount },
+      { status: 200 }
+    );
+
   } catch (error) {
     console.error("GET /api/accounts error:", error);
     return NextResponse.json(

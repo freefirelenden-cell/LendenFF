@@ -5,12 +5,14 @@ import { usePathname } from "next/navigation";
 import { LogOut, PlusCircle, Settings, User, BarChart2, Home } from "lucide-react";
 import { myContext } from "../context/context";
 import { useContext } from 'react'
+import { useRouter } from "next/navigation";
 
 
 
 export default function DashboardLayout({ children }) {
   const pathname = usePathname();
-  const { useContext } = useContext(myContext)
+  const { signOut } = useContext(myContext);
+  const router = useRouter()
 
   const links = [
     { name: "Overview", href: "/dashboard", icon: <Home size={18} /> },
@@ -18,6 +20,16 @@ export default function DashboardLayout({ children }) {
     { name: "Add Account", href: "/dashboard/accounts/new", icon: <PlusCircle size={18} /> },
     { name: "Analytics", href: "/dashboard/stats", icon: <BarChart2 size={18} /> },
   ];
+
+
+  const handleLogout = async () => {
+  try {
+    await signOut();
+    router.push("/");
+  } catch (error) {
+    console.error("Logout failed:", error);
+  }
+};
 
   return (
     <div className="min-h-screen flex bg-[var(--color-bg)] text-[var(--color-text)] transition-colors duration-300">
@@ -48,7 +60,7 @@ export default function DashboardLayout({ children }) {
           })}
         </nav>
 
-        <button onClick={ } className="mt-auto flex items-center gap-2 px-4 py-2 rounded-xl text-red-400 hover:bg-red-500/10 transition">
+        <button onClick={handleLogout} className="mt-auto flex items-center gap-2 px-4 py-2 rounded-xl text-red-400 hover:bg-red-500/10 transition">
           <LogOut size={18} />
           Logout
         </button>
