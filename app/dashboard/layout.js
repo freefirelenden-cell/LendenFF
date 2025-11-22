@@ -3,10 +3,14 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LogOut, PlusCircle, Settings, User, BarChart2, Home } from "lucide-react";
+import { myContext } from "../context/context";
+import { useContext } from 'react'
+
 
 
 export default function DashboardLayout({ children }) {
   const pathname = usePathname();
+  const { useContext } = useContext(myContext)
 
   const links = [
     { name: "Overview", href: "/dashboard", icon: <Home size={18} /> },
@@ -44,10 +48,10 @@ export default function DashboardLayout({ children }) {
           })}
         </nav>
 
-          <button className="mt-auto flex items-center gap-2 px-4 py-2 rounded-xl text-red-400 hover:bg-red-500/10 transition">
+        <button onClick={ } className="mt-auto flex items-center gap-2 px-4 py-2 rounded-xl text-red-400 hover:bg-red-500/10 transition">
           <LogOut size={18} />
-            Logout
-          </button>
+          Logout
+        </button>
       </aside>
 
       {/* 📱 Mobile Navbar */}
@@ -75,7 +79,7 @@ export default function DashboardLayout({ children }) {
           <h1 className="text-xl font-semibold text-[var(--color-brand-yellow)]">
             Dashboard
           </h1>
-       
+
         </header>
 
         {/* Main Page Content */}
