@@ -2,17 +2,22 @@
 
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 export default function CheckAuth({ children }) {
-  const { data: session, status } = useSession();
+    const { data: session, status } = useSession();
+    const pathname = usePathname();
 
-  if (status === "loading") {
-    return <div>Loading...</div>;
-  }
+   
 
-  if (!session) {
-    redirect("/api/auth/signin");
-  }
+    const isProtected = pathname.startsWith("/dashboard");
 
-  return <>{children}</>;
+     if (status !== "loading"){
+         if (isProtected && !session) {
+             redirect("/api/auth/signin");
+         }
+
+     }
+
+    return <>{children}</>
 }
