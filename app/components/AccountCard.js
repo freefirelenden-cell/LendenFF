@@ -34,7 +34,7 @@ export default function AccountCard({ account }) {
         </p>
 
         <p className="text-[var(--color-brand-yellow)] font-bold mb-4">
-          {account.price}
+          Rs. {account.price}
         </p>
 
         <Link
