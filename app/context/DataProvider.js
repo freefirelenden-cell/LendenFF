@@ -35,7 +35,7 @@ export default function DataProvider({ children }) {
         getNewest(6)
             .then(data => {
                 setIsLoadedLatestAccounts(true)
-                setLatestAccounts(data)
+                setLatestAccounts(data.accounts)
             })
             .catch(err => console.log(err))
     }, [pathname])
