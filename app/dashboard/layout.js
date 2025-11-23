@@ -2,17 +2,15 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LogOut, PlusCircle, Settings, User, BarChart2, Home } from "lucide-react";
+import { LogOut, PlusCircle, User, BarChart2, Home } from "lucide-react";
 import { myContext } from "../context/context";
 import { useContext } from 'react'
-import { useRouter } from "next/navigation";
 
 
 
 export default function DashboardLayout({ children }) {
   const pathname = usePathname();
   const { signOut } = useContext(myContext);
-  const router = useRouter()
 
   const links = [
     { name: "Overview", href: "/dashboard", icon: <Home size={18} /> },
@@ -25,7 +23,6 @@ export default function DashboardLayout({ children }) {
   const handleLogout = async () => {
   try {
     await signOut();
-    router.push("/");
   } catch (error) {
     console.error("Logout failed:", error);
   }

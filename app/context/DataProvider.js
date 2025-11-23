@@ -44,12 +44,12 @@ export default function DataProvider({ children }) {
 
     useEffect(() => {
         if (!isLoadedUserData || !userData) return;
-        if (!pathname.startsWith("/dashboard")) return;
+        if (!pathname.startsWith("/dashboard") && !isSignedIn) return;
         if (userCreatedAccounts.length > 0) return; // 👈 already loaded, skip re-fetch
 
         getAccounts(userData.id)
             .then(data => {
-                setUserCreatedAccounts(data)
+                setUserCreatedAccounts(data.accounts)
                 setIsLoadedUserCreatedAccounts(true)
             })
             .catch(console.error);
