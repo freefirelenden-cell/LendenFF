@@ -1,14 +1,23 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { myContext } from "../context/context";
 import { useContext } from "react"
 
 
 export default function SignInButton({ className = "" }) {
     const { isSignedIn, signIn, signOut } = useContext(myContext)
+    const router = useRouter()
 
 
-    const handleClick = () => !isSignedIn ? signIn("google") : signOut()
+    const handleClick = () =>{
+        if(!isSignedIn){
+            router.push("/")
+            signIn("google")
+        }else{
+             signOut()
+        }
+    }
 
     return (
         <div className={`flex flex-col items-center w-max ${className}`}>

@@ -2,6 +2,7 @@
 import ImageSlider from "@/app/components/Slider";
 import LoadingSpinner from "@/app/components/ui/LoadingSpinner";
 import { getAccountById, getUserById } from "@/lib/apiClient";
+import Image from "next/image";
 import Link from "next/link";
 import { use, useEffect, useState } from "react";
 
@@ -65,6 +66,8 @@ export default function AccountDetail({ params }) {
         <div className="bg-[var(--color-bg)] border border-[var(--color-border)] rounded-3xl shadow-xl overflow-hidden">
           {/* Image Section */}
           <div className="relative w-full h-72 sm:h-96">
+            {account.status == 'sold' &&
+              <div className="absolute w-full h-full flex justify-center items-center font-bold text-6xl bg-blue-500 opacity-60 text-black z-10">Sold</div>}
             <ImageSlider images={account.img} alt={account.title} />
           </div>
 
@@ -81,9 +84,11 @@ export default function AccountDetail({ params }) {
                 href={`/seller/${seller?.authId}`}
                 className="flex items-center gap-2 hover:text-[var(--color-brand-yellow)] transition"
               >
-                <img
-                  src={seller?.image}
+                <Image
+                  src={seller?.image || ""}
                   alt={seller?.name || "Seller"}
+                  width={40}
+                  height={40}
                   className="w-[40px] h-[40px] rounded-full border border-[var(--color-border)] hover:scale-105 transition-transform"
                 />
                 <span>{seller?.name}</span>
@@ -101,25 +106,25 @@ export default function AccountDetail({ params }) {
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
               <div className="bg-[var(--color-bg)] border border-[var(--color-border)] rounded-xl p-3 text-center">
                 <p className="text-[var(--color-brand-yellow)] font-semibold text-lg">
-                  {account.stats?.level}
+                  {account.stats?.level ? account.stats?.level : "_"}
                 </p>
                 <p className="text-[var(--color-text)] text-sm">Level</p>
               </div>
               <div className="bg-[var(--color-bg)] border border-[var(--color-border)] rounded-xl p-3 text-center">
                 <p className="text-[var(--color-brand-yellow)] font-semibold text-lg">
-                  {account.stats?.matches}
+                  {account.stats?.matches ? account.stats?.matches : "_"}
                 </p>
                 <p className="text-[var(--color-text)] text-sm">Matches</p>
               </div>
               <div className="bg-[var(--color-bg)] border border-[var(--color-border)] rounded-xl p-3 text-center">
                 <p className="text-[var(--color-brand-yellow)] font-semibold text-lg">
-                  {account.stats?.kdr}
+                  {account.stats?.kdr ? account.stats?.kdr : "_"}
                 </p>
                 <p className="text-[var(--color-text)] text-sm">K/D Ratio</p>
               </div>
               <div className="bg-[var(--color-bg)] border border-[var(--color-border)] rounded-xl p-3 text-center">
                 <p className="text-[var(--color-brand-yellow)] font-semibold text-lg">
-                  {account.stats?.badges}
+                  {account.stats?.badges ? account.stats?.badges : "_"}
                 </p>
                 <p className="text-[var(--color-text)] text-sm">Badges</p>
               </div>
@@ -131,11 +136,15 @@ export default function AccountDetail({ params }) {
                 Rs. {account.price}
               </p>
 
-              <Link href={`/checkout/${account._id}`}>
-                <button className="bg-[var(--color-brand-yellow)] text-black font-semibold px-8 py-3 rounded-xl hover:bg-[var(--color-brand-gold)] transition-transform hover:scale-105">
-                  Buy Now
-                </button>
-              </Link>
+              {account.status == "sold" ? (
+                <></>
+              ) : (
+                <Link href={`/checkout/${account._id}`}>
+                  <button className="bg-[var(--color-brand-yellow)] text-black font-semibold px-8 py-3 rounded-xl hover:bg-[var(--color-brand-gold)] transition-transform hover:scale-105">
+                    Buy Now
+                  </button>
+                </Link>
+              )}
             </div>
           </div>
         </div>

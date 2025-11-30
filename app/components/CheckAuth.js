@@ -10,10 +10,12 @@ export default function CheckAuth({ children }) {
 
    
 
-    const isProtected = pathname.startsWith("/dashboard");
 
      if (status !== "loading"){
-         if (isProtected && !session) {
+         if (pathname.startsWith("/dashboard") && !session) {
+             redirect("/api/auth/signin");
+         }
+         if (pathname.startsWith("/checkout") && !session) {
              redirect("/api/auth/signin");
          }
 

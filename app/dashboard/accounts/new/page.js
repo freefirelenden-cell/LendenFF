@@ -11,7 +11,7 @@ import { myContext } from "@/app/context/context";
 
 export default function SellAccountPage() {
 
-  const { userData } = useContext(myContext)
+  const { user } = useContext(myContext)
   const router = useRouter()
   const [tempImages, setTempImages] = useState([]);
   const [submiting, setSubmiting] = useState(false)
@@ -29,7 +29,7 @@ export default function SellAccountPage() {
     uid: "1234567890",
     email: "seller@gmail.com",
     password: "test@123",
-    userId: userData?.id
+    userId: user?.id
   });
 
 
@@ -38,7 +38,7 @@ export default function SellAccountPage() {
     setSubmiting(true);
     setProgress(10);
     try {
-      if (!userData?.id) {
+      if (!user?.id) {
         alert("Please wait for user to load or sign in first.");
         return;
       }
@@ -48,17 +48,13 @@ export default function SellAccountPage() {
       const cleanedImages = imagesRes.map(({ url, fileId }) => ({ url, fileId }));
       setProgress(60)
 
-      const finalForm = { ...form, userId: userData.id, img: [...cleanedImages] }; // ✅ inject userId here
+      const finalForm = { ...form, userId: user.id, img: [...cleanedImages] }; // ✅ inject userId here
       setProgress(80)
 
       const uploadFormRes = await createAccount(finalForm);
       setProgress(100)
       alert("✅ Account created successfully!");
-      
       router.push("/dashboard/accounts");
-      setTimeout(() => {
-        window.location.reload()
-      }, 500);
 
     } catch (error) {
       console.error(error);

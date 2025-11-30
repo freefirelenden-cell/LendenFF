@@ -14,11 +14,11 @@ import { myContext } from "@/app/context/context";
 import LoadingSpinner from "@/app/components/ui/LoadingSpinner";
 
 export default function StatsPage() {
-  const { userCreatedAccounts, isLoadedUserCreatedAccounts, isLoadedUserData } = useContext(myContext);
+  const { userCreatedAccounts, isLoadedUserCreatedAccounts, isLoadedUser } = useContext(myContext);
   const [stats, setStats] = useState(null);
 
   useEffect(() => {
-    if (!isLoadedUserData || !userCreatedAccounts) return;
+    if (!isLoadedUser || !userCreatedAccounts) return;
 
     // 🧮 Stats Calculation from userCreatedAccounts
     const totalAccounts = userCreatedAccounts.length;
@@ -54,11 +54,11 @@ export default function StatsPage() {
       monthlySales,
     });
 
-  }, [isLoadedUserData, userCreatedAccounts]);
+  }, [isLoadedUser, userCreatedAccounts]);
 
 
   
-  if (!isLoadedUserData || !stats || !isLoadedUserCreatedAccounts) {
+  if (!isLoadedUser || !stats || !isLoadedUserCreatedAccounts) {
     return <LoadingSpinner size="xl" showText={true} text="Loading stats..." />;
   }
 

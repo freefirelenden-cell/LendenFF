@@ -1,13 +1,25 @@
 'use client'
 import Link from "next/link";
 import AccountCard from "./AccountCard";
-import { useContext } from "react";
-import { myContext } from "../context/context";
 import LoadingSpinner from "./ui/LoadingSpinner";
+import { getAccounts } from "@/lib/apiClient";
+import {useState, useEffect} from "react"
 
 
 export default function HomeSection() {
-  const { latestAccounts, isLoadedLatestAccounts } = useContext(myContext)
+  const [latestAccounts, setLatestAccounts] = useState([]);
+  const [isLoadedLatestAccounts, setIsLoadedLatestAccounts] = useState(false)
+
+  
+  useEffect(() => {
+    getAccounts("", "", 6)
+      .then(data => {
+        setIsLoadedLatestAccounts(true)
+        setLatestAccounts(data.accounts)
+      })
+      .catch(err => console.log(err))
+  }, []);
+
 
   return (
     <section className="bg-[var(--color-bg)] text-[var(--color-text)] py-20 transition-colors duration-300">

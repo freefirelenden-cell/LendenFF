@@ -3,15 +3,17 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-    images: {
+  images: {
     remotePatterns: [
       {
         protocol: "https",
         hostname: "lh3.googleusercontent.com",
+        pathname: "/**", // allow all paths from this domain
       },
-        {
+      {
         protocol: "https",
-        hostname: "ik.imagekit.io", 
+        hostname: "ik.imagekit.io",
+        pathname: "/**", // allow all paths from this domain
       },
     ],
   },

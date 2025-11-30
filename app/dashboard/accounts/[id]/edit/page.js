@@ -22,7 +22,8 @@ export default function EditAccountPage() {
   // 🔹 Fetch existing account
   useEffect(() => {
     if (!params?.id) return;
-    getAccountById(params.id)
+    let includePassword = true
+    getAccountById(params.id, includePassword)
     .then((data) => {
         setForm(data);
         const images = data.img.map(imgData => ({ ...imgData, isTemp: false }))

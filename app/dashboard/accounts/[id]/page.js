@@ -9,7 +9,7 @@ import LoadingSpinner from "@/app/components/ui/LoadingSpinner";
 import Progress from "@/app/components/ui/Progress";
 
 export default function AccountDetailPage() {
-  const { userData, isLoadedUserData } = useContext(myContext)
+  const { user, isLoadedUser } = useContext(myContext)
   const params = useParams();
   const router = useRouter();
   const [account, setAccount] = useState(null);
@@ -55,7 +55,7 @@ export default function AccountDetailPage() {
 
 
 
-  if (!isLoadedUserData || loading) {
+  if (!isLoadedUser || loading) {
     return <LoadingSpinner size="xl" showText={true} text="Loading account details..." />
   }
   if (!account) {
@@ -67,7 +67,7 @@ export default function AccountDetailPage() {
 
 
   // ✅ Ownership check
-  const isOwner = userData?.id === account.createdBy;
+  const isOwner = user?.id === account.createdBy;
   const isSold = account.status !== "sold"
 
  

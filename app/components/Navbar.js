@@ -10,7 +10,7 @@ import { useContext } from "react"
 
 export default function Navbar() {
     const [open, setOpen] = useState(false);
-        const { isSignedIn } = useContext(myContext)
+    const { user } = useContext(myContext)
 
 
     const links = [
@@ -18,6 +18,7 @@ export default function Navbar() {
         { label: "Accounts", path: "/accounts" },
         { label: "About", path: "/about" },
         { label: "Dashboard", path: "/dashboard" },
+        { label: "UpgradeAccount", path: "/upgradeAccount" },
     ];
 
 
@@ -25,7 +26,8 @@ export default function Navbar() {
 
     function NavLinks({ links }) {
         return links.map(({ label, path }) => {
-            if(path == "/dashboard" && !isSignedIn) return;
+            if (path == "/dashboard" && user?.role != "seller") return;
+            if (path == "/upgradeAccount" && user?.role != "user") return;
             return <Link
                 key={label}
                 href={path}

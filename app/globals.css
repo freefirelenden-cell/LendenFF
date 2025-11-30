@@ -109,3 +109,21 @@ button:hover {
   background: var(--color-accent-gold);
   transform: scale(1.05);
 }
+
+
+.no-arrow {
+  -moz-appearance: textfield;
+}
+
+.no-arrow::-webkit-inner-spin-button,
+.no-arrow::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.underline-wavy-red {
+  text-decoration-line: underline;
+  text-decoration-style: wavy;
+  text-decoration-color: #f87171; /* Tailwind red-400 */
+  text-decoration-thickness: 2px; /* optional, underline थोड़ी मोटी करने के लिए */
+}

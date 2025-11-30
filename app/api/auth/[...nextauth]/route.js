@@ -1,6 +1,8 @@
 // app/api/auth/[...nextauth]/route.js
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import User from "@/models/User";           // ⭐ Add this
+import { databaseConnection } from "@/lib/db"; // ⭐ Add this
 
 const authOptions = {
   providers: [
@@ -13,19 +15,45 @@ const authOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   session: { strategy: "jwt" },
   callbacks: {
-    async jwt({ token, user, account }) {
-      if (account && user) {
-        token.provider = account.provider;
-        token.id = user.id ?? token.sub;
+    async jwt({ token, user, account, trigger }) {
+
+      // ⭐ User login ho raha hai
+      if (account) {
+        await databaseConnection();
+        const dbUser = await User.findOne({ authId: user.id }).lean();
+
+        token.phone = dbUser?.phone || "";
+        token.role = dbUser?.role || "user";
+        token.isUserExistInDB = !!dbUser;
+
+        return token;
       }
+
+      // ⭐ Jab hum session refresh trigger karein
+      if (trigger === "update") {
+        await databaseConnection();
+        const dbUser = await User.findOne({ authId: token.sub }).lean();
+
+        token.phone = dbUser?.phone || "";
+        token.role = dbUser?.role || "user";
+        token.isUserExistInDB = !!dbUser;
+      }
+
       return token;
     },
+
+
     async session({ session, token }) {
-      session.user.id = token.id;
-      session.user.provider = token.provider;
+      session.user.id = token.sub;
+      session.user.phone = token.phone || "";
+      session.user.role = token.role || "user";
+      session.user.isUserExistInDB = token.isUserExistInDB;
+
       return session;
-    },
-  },
+    }
+
+  }
+
 };
 
 const handler = NextAuth(authOptions);

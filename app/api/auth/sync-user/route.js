@@ -6,21 +6,23 @@ import { databaseConnection } from "@/lib/db";
 
 
 export async function POST(req) {
+
   await databaseConnection();
   const body = await req.json();
+  const user = await User.findOne({ authId: body.authId })
 
-  const existing = await User.findOne({ authId: body.authId });
-
-  if (!existing) {
+  if (!user) {
     const newUser = new User({
       authId: body.authId,
       email: body.email,
       name: body.name,
       image: body.image,
+      role: body.role,
+      phone: body.phone
     });
-    await newUser.save();
 
-    return NextResponse.json({ message: "User synced", data: newUser });
+    await newUser.save();
+    return NextResponse.json({ message: "User synced", syncUser: true, data: newUser });
   }
 
   return NextResponse.json({ message: "User already exists" });

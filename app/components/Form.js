@@ -1,8 +1,11 @@
+"use client"
 import React, { useContext } from 'react'
 import UploadImage from './UploadImage'
 import LoadingSpinner from './ui/LoadingSpinner';
 import Progress from './ui/Progress';
 import { myContext } from '../context/context';
+import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 
 
 
@@ -12,15 +15,29 @@ export default function Form({
     name, tempImages, setTempImages, submiting,
     setToDeleteImages, progress
 }) {
-    const { isLoadedUserData, userData } = useContext(myContext)
+    const { isLoadedUser, user } = useContext(myContext);
+    const [showPassword, setShowPassword] = useState(false);
+
 
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setForm((prev) => ({ ...prev, [name]: value }));
+        if (name.startsWith("stats.")) {
+            // handle nested stats keys
+            const key = name.split(".")[1]; // "level", "matches", etc.
+            setForm((prev) => ({
+                ...prev,
+                stats: {
+                    ...prev.stats,
+                    [key]: value,
+                },
+            }));
+        } else {
+            setForm((prev) => ({ ...prev, [name]: value }));
+        }
     };
 
-    if (!isLoadedUserData && !userData?.id) {
+    if (!isLoadedUser && !user?.id) {
         return <LoadingSpinner size="xl" showText={true} />
     }
 
@@ -108,16 +125,27 @@ export default function Form({
                                 required
                             />
                         </div>
-                        <div>
+                        <div className="relative">
                             <label className="block text-sm font-semibold mb-2">Password</label>
+
                             <input
-                                type="password"
+                                type={showPassword ? "text" : "password"}
                                 name="password"
                                 value={form.password}
                                 onChange={handleChange}
                                 placeholder="Account password"
-                                className="w-full p-3 rounded-lg border border-[var(--color-border)] bg-transparent focus:outline-none focus:border-[var(--color-brand-yellow)]"
+                                className="w-full p-3 rounded-lg border border-[var(--color-border)] bg-transparent focus:outline-none focus:border-[var(--color-brand-yellow)] pr-10"
                             />
+
+                            {/* Eye Icon */}
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="absolute right-3 top-[50%] -translate-y-1/2 text-[var(--color-text-secondary)]"
+                            >
+                                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                            </button>
+
                             <p className="text-xs text-[var(--color-text-secondary)] mt-1">
                                 (Optional — can provide after sale)
                             </p>
@@ -140,10 +168,10 @@ export default function Form({
 
                     {/* Stats */}
                     <div className="grid sm:grid-cols-4 gap-4">
-                        <Input label="Level" name="level" value={form.stats.level} onChange={handleChange} />
-                        <Input label="Matches" name="matches" value={form.stats.matches} onChange={handleChange} />
-                        <Input label="K/D Ratio" name="kdr" value={form.stats.kdr} onChange={handleChange} />
-                        <Input label="Badges" name="badges" value={form.stats.badges} onChange={handleChange} />
+                        <Input label="Level" name="stats.level" value={form.stats.level} onChange={handleChange} />
+                        <Input label="Matches" name="stats.matches" value={form.stats.matches} onChange={handleChange} />
+                        <Input label="K/D Ratio" name="stats.kdr" value={form.stats.kdr} onChange={handleChange} />
+                        <Input label="Badges" name="stats.badges" value={form.stats.badges} onChange={handleChange} />
                     </div>
 
                     {/* Upload images */}

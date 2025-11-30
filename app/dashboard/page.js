@@ -9,7 +9,7 @@ import LoadingSpinner from "../components/ui/LoadingSpinner";
 
 
 export default function DashboardPage() {
-  const { userCreatedAccounts, isLoadedUserCreatedAccounts, userData } = useContext(myContext)
+  const { userCreatedAccounts, isLoadedUserCreatedAccounts, user } = useContext(myContext)
 
 
 
@@ -33,7 +33,7 @@ export default function DashboardPage() {
       {/* Header */}
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold text-[var(--color-brand-yellow)]">
-          Welcome Back, {userData?.name || "Seller"} 👋
+          Welcome Back, {user?.name || "Seller"} 👋
         </h1>
         <Link
           href="/dashboard/accounts/new"

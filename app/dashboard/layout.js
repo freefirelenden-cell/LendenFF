@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LogOut, PlusCircle, User, BarChart2, Home } from "lucide-react";
+import { LogOut, PlusCircle, User, BarChart2, Home, Wallet  } from "lucide-react";
 import { myContext } from "../context/context";
 import { useContext } from 'react'
 
@@ -17,6 +17,7 @@ export default function DashboardLayout({ children }) {
     { name: "My Accounts", href: "/dashboard/accounts", icon: <User size={18} /> },
     { name: "Add Account", href: "/dashboard/accounts/new", icon: <PlusCircle size={18} /> },
     { name: "Analytics", href: "/dashboard/stats", icon: <BarChart2 size={18} /> },
+    { name: "Change Wallet Account", href: "/upgradeAccount", icon: <Wallet  size={18} /> },
   ];
 
 
