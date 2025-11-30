@@ -66,6 +66,7 @@ const accountSchema = new mongoose.Schema(
       enum: ["pending", "approved", "rejected"],
       default: "pending",
     },
+    isFeatured: { type: Boolean, required: true },
     createdBy: {
       type: String,
     },

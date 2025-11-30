@@ -92,7 +92,8 @@ export async function POST(req) {
       stats: body.stats || {},
       uid: body.uid,
       email: body.email,
-      password: body.password, // hashed automatically (if you add pre-save)
+      password: body.password, 
+      isFeatured: body.isFeatured,
       status: "pending",
       createdBy: body.userId,
     });

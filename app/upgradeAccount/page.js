@@ -27,6 +27,7 @@ export default function UpgradeAccountPage() {
     e.preventDefault();
     setLoading(true);
     if (phone.length != 11) {
+      setLoading(false)
       alert("Number must contain only 11 digits")
       return
     }

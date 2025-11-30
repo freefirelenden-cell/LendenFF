@@ -16,6 +16,7 @@ export default function SyncUserToDB() {
         name: user.name,
         image: user.image,
         role: "user",
+        isTrusted: false,
         phone: user.phone,
       }
       const newUser = await syncUser(newData);

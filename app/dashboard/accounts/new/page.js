@@ -29,6 +29,7 @@ export default function SellAccountPage() {
     uid: "1234567890",
     email: "seller@gmail.com",
     password: "test@123",
+    isFeatured: false,
     userId: user?.id
   });
 

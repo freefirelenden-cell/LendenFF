@@ -18,6 +18,7 @@ export async function POST(req) {
       name: body.name,
       image: body.image,
       role: body.role,
+      isTrusted: body.isTrusted,
       phone: body.phone
     });
 

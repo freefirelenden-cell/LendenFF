@@ -92,6 +92,9 @@ export default function AccountDetail({ params }) {
                   className="w-[40px] h-[40px] rounded-full border border-[var(--color-border)] hover:scale-105 transition-transform"
                 />
                 <span>{seller?.name}</span>
+                {seller.isTrusted && (
+                  <img src="/images/bluetick.svg" className="w-5 h-5" alt="tick" />
+                )}
               </Link>
             </p>
 

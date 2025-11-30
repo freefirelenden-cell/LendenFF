@@ -108,7 +108,7 @@ export default function CheckoutPage() {
                     });
                     const mailData = await mailRes.json()
 
-                    const updatedAccount = await updateAccount(params.id, { status: "sold" })
+                    // const updatedAccount = await updateAccount(params.id, { status: "sold" })
                     window.location.href = `/checkout/success/${orderResult.order.accountId}`;
                     alert("✅ Payment has been successfully")
 
