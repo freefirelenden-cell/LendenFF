@@ -107,9 +107,9 @@ export default function CheckoutPage() {
                         })
                     });
                     const mailData = await mailRes.json()
-
+                    console.log(mailData)
                     // const updatedAccount = await updateAccount(params.id, { status: "sold" })
-                    window.location.href = `/checkout/success/${orderResult.order.accountId}`;
+                    // window.location.href = `/checkout/success/${orderResult.order.accountId}`;
                     alert("✅ Payment has been successfully")
 
                 } else {
