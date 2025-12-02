@@ -1,5 +1,4 @@
 // app/components/About.js - UPDATED WITH CLEAR MESSAGING
-import Image from "next/image";
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://freefirelenden.vercel.app';
 const currentYear = new Date().getFullYear();
 
@@ -179,22 +178,7 @@ export default function About() {
           </div>
         </div>
 
-        {/* Image */}
-        <div className="relative w-full h-80 md:h-full rounded-2xl overflow-hidden shadow-lg">
-          <Image
-            src="/images/about-banner.webp"
-            alt="Free Fire gaming marketplace - Secure trading platform"
-            fill
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-black/40" />
-          {/* Overlay Text */}
-          <div className="absolute bottom-4 left-4 right-4 text-white">
-            <p className="text-sm bg-black/70 p-2 rounded">
-              <strong>Platform Security Only</strong> - We ensure payment security and verification, but individual seller transactions vary.
-            </p>
-          </div>
-        </div>
+    
       </div>
     </section>
   );
