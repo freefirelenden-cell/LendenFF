@@ -1,7 +1,5 @@
 'use client'
 
-import { homeMetadata } from './metadata';
-export const metadata = homeMetadata;
 
 import { getAccounts, getUserById } from "@/lib/apiClient";
 import AccountCard from "@/app/components/AccountCard";

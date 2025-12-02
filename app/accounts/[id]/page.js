@@ -1,7 +1,6 @@
 "use client"
 
-import { homeMetadata } from './metadata';
-export const metadata = homeMetadata;
+
 
 import ImageSlider from "@/app/components/Slider";
 import LoadingSpinner from "@/app/components/ui/LoadingSpinner";

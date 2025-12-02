@@ -1,6 +1,4 @@
 "use client"
-import { homeMetadata } from './metadata';
-export const metadata = homeMetadata;
 
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "next/navigation";

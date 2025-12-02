@@ -6,8 +6,8 @@ const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 export async function generateMetadata({ params }) {
   const { id } = params;
 
-  // Seller data fetch
-  const { user } = await getUserById(id);
+  const data = await getUserById(id);
+  const user = data?.user;
 
   if (!user) {
     return {
@@ -65,9 +65,8 @@ export async function generateMetadata({ params }) {
       creator: "@freefirelenden",
     },
 
-    // ⭐ Structured Data (HIGH RANK BOOSTER)  
+    // ⭐ STRUCTURED DATA
     other: {
-      // Seller Schema
       "application/ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "Person",
@@ -76,21 +75,17 @@ export async function generateMetadata({ params }) {
         "image": sellerImage,
         "jobTitle": "Free Fire Account Seller",
         "description": description,
-        "sameAs": [
-          `${baseUrl}/seller/${id}`,
-        ],
+        "sameAs": [url],
       }),
 
-      // Seller's Product List Schema
       "application/ld+json+products": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "CollectionPage",
         "name": `${sellerName} - Free Fire Accounts`,
         "url": url,
-        "description": `${sellerName}'s active Free Fire accounts for sale`,
+        "description": `${sellerName}'s active Free Fire accounts for sale`
       }),
 
-      // Breadcrumb Schema
       "application/ld+json+breadcrumb": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
