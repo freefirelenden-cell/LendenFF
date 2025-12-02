@@ -1,6 +1,6 @@
 "use client";
 
-import { createAccount, uploadImages } from "@/lib/apiClient";
+import { createAccount } from "@/lib/apiClient";
 import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
 import Form from "@/app/components/Form";
@@ -37,32 +37,61 @@ export default function SellAccountPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmiting(true);
-    setProgress(10);
+
     try {
       if (!user?.id) {
         alert("Please wait for user to load or sign in first.");
         return;
       }
-      setProgress(25)
-      const imagesRes = await uploadImages(tempImages);
-      setProgress(50)
-      const cleanedImages = imagesRes.map(({ url, fileId }) => ({ url, fileId }));
-      setProgress(60)
 
-      const finalForm = { ...form, userId: user.id, img: [...cleanedImages] }; // ✅ inject userId here
-      setProgress(80)
+      const imagesToUpload = tempImages.filter(img => img.isTemp);
+      const existingImages = tempImages.filter(img => !img.isTemp).map(img => ({ url: img.url, fileId: img.fileId }));
+
+      const cleanedImages = [...existingImages];
+      const total = imagesToUpload.length;
+
+      for (let i = 0; i < total; i++) {
+        const img = imagesToUpload[i];
+        // update progress — base + per-image share
+        setProgress(Math.round((i / total) * 80));  // example: 0–80 range
+        const formData = new FormData();
+        formData.append("file", img.file);
+        formData.append("fileName", img.fileName);
+
+        const res = await fetch("/api/image", {
+          method: "POST",
+          body: formData
+        });
+        if (!res.ok) throw new Error(`Upload failed for ${img.fileName}`);
+
+        const result = await res.json();
+        cleanedImages.push({ url: result.url, fileId: result.fileId });
+
+        // optional: revoke object URL if using blob
+        if (img.url.startsWith("blob:")) {
+          URL.revokeObjectURL(img.url);
+        }
+      }
+
+      setProgress(80);
+
+      const finalForm = { ...form, userId: user.id, img: cleanedImages };
+      setProgress(90);
 
       const uploadFormRes = await createAccount(finalForm);
-      setProgress(100)
+      setProgress(100);
+
       alert("✅ Account created successfully!");
       router.push("/dashboard/accounts");
 
     } catch (error) {
-      console.error(error);
+      console.error("Submit error:", error);
+      alert("Upload failed: " + error.message);
     } finally {
-      setSubmiting(false)
+      setSubmiting(false);
     }
   };
+
 
   return (
     <Form

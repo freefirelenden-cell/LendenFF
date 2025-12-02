@@ -1,24 +1,8 @@
-'use client'
 import Link from "next/link";
-import AccountCard from "./AccountCard";
-import LoadingSpinner from "./ui/LoadingSpinner";
-import { getAccounts } from "@/lib/apiClient";
-import {useState, useEffect} from "react"
+import ListCards from "./ListCards";
 
 
 export default function HomeSection() {
-  const [latestAccounts, setLatestAccounts] = useState([]);
-  const [isLoadedLatestAccounts, setIsLoadedLatestAccounts] = useState(false)
-
-  
-  useEffect(() => {
-    getAccounts("", "", 6)
-      .then(data => {
-        setIsLoadedLatestAccounts(true)
-        setLatestAccounts(data.accounts)
-      })
-      .catch(err => console.log(err))
-  }, []);
 
 
   return (
@@ -48,17 +32,7 @@ export default function HomeSection() {
         </h2>
 
 
-        {isLoadedLatestAccounts ? (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {latestAccounts?.map((account) => (
-              <AccountCard key={account._id} account={account} />
-            ))}
-          </div>
-        ) : (
-          <div className="flex items-center justify-center h-64">
-            <LoadingSpinner size="xl" />
-          </div>
-        )}
+        <ListCards limit={6} isPagination={false} />
 
         {/* 🔘 Explore More Button */}
         <div className="text-center mt-12">

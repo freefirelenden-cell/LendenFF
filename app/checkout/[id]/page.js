@@ -1,4 +1,7 @@
 "use client"
+import { homeMetadata } from './metadata';
+export const metadata = homeMetadata;
+
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import LoadingSpinner from "@/app/components/ui/LoadingSpinner";
@@ -59,7 +62,12 @@ export default function CheckoutPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (formData.phone.length != 11) {
+            alert("Number must contain only 11 digits")
+            return
+        }
         setProcessing(true);
+
 
         try {
 
@@ -90,7 +98,7 @@ export default function CheckoutPage() {
                 });
                 if (orderResult.success) {
 
-                   const mailRes = await fetch("/api/send-mail", {
+                    const mailRes = await fetch("/api/send-mail", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({
@@ -106,10 +114,8 @@ export default function CheckoutPage() {
                             orderId: orderResult.order._id
                         })
                     });
-                    const mailData = await mailRes.json()
-                    console.log(mailData)
-                    // const updatedAccount = await updateAccount(params.id, { status: "sold" })
-                    // window.location.href = `/checkout/success/${orderResult.order.accountId}`;
+                    const updatedAccount = await updateAccount(params.id, { status: "sold" })
+                    window.location.href = `/checkout/success/${orderResult.order.accountId}`;
                     alert("✅ Payment has been successfully")
 
                 } else {
@@ -176,6 +182,7 @@ export default function CheckoutPage() {
                                     <label className="block text-sm font-medium mb-1">Full Name</label>
                                     <input
                                         type="text"
+                                        placeholder=""
                                         value={formData.name}
                                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                         className="border rounded-lg p-3 w-full"

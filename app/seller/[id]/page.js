@@ -1,15 +1,19 @@
 'use client'
+
+import { homeMetadata } from './metadata';
+export const metadata = homeMetadata;
+
 import { getAccounts, getUserById } from "@/lib/apiClient";
 import AccountCard from "@/app/components/AccountCard";
 import Link from "next/link";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import LoadingSpinner from "@/app/components/ui/LoadingSpinner";
 
 export default function SellerPage({ params }) {
     const [accounts, setAccounts] = useState([])
     const [sellerLabel, setSellerLabel] = useState({})
-    const { id } = use(params)
     const [loading, setLoading] = useState(true)
+    const { id } = use(params)
 
 
     useEffect(() => {

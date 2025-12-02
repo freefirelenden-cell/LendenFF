@@ -1,4 +1,6 @@
 "use client";
+import { homeMetadata } from './metadata';
+export const metadata = homeMetadata;
 
 import LoadingSpinner from "@/app/components/ui/LoadingSpinner";
 import { myContext } from "@/app/context/context";

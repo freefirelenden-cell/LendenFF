@@ -1,0 +1,20 @@
+app 
+|-about 
+|-accounts
+|   |-page.js   << all accounts list
+|   |-[id]
+|
+|-checkout
+|   |-[id]
+|   |-failed
+|   |-success
+|
+|-seller/[id]
+|
+|-upgradeAccount/[id]    << upgradeAccount to sellerAccount
+|
+|-dashboard
+|   |-page.js
+    |-layout.js
+    |-stats/page.js
+    |-accounts/page.js
