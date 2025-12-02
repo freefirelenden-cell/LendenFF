@@ -1,7 +1,7 @@
 // app/components/About.js - UPDATED WITH CLEAR MESSAGING
 import Image from "next/image";
-import { homeMetadata } from './metadata';
-export const metadata = homeMetadata;
+import { aboutMetadata } from './metadata';
+export const metadata = aboutMetadata;
 
 export default function About() {
 
