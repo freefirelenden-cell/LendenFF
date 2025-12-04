@@ -19,16 +19,15 @@ export default function SellAccountPage() {
 
 
   const [form, setForm] = useState({
-    title: "Level 75 • 15 Elite Passes • 300+ Skins",
-    rank: "Heroic",
-    price: "2999",
+    title: "",
+    rank: "",
+    price: "",
     img: [],
-    description:
-      "This Heroic-level Free Fire account comes with 300+ skins, 15 elite passes, and exclusive legendary bundles. Gmail verified and ready for instant transfer.",
-    stats: { level: 23, matches: 21, kdr: 45, badges: 10 },
-    uid: "1234567890",
-    email: "seller@gmail.com",
-    password: "test@123",
+    description: "",
+    stats: { level: 0, matches: 0, kdr: 0, badges: 0 },
+    uid: "",
+    email: "",
+    password: "",
     isFeatured: false,
     userId: user?.id
   });

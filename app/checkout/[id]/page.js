@@ -114,7 +114,7 @@ export default function CheckoutPage() {
                     });
                     const updatedAccount = await updateAccount(params.id, { status: "sold" })
                     window.location.href = `/checkout/success/${orderResult.order.accountId}`;
-                    alert("✅ Payment has been successfully")
+                    alert("✅ Order has been created")
 
                 } else {
                     window.location.href = `/checkout/failed`;

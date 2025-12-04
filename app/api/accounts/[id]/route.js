@@ -49,6 +49,7 @@ export async function PUT(req, context) {
     if (body.password) updateFields.password = body.password;
     if (body.img) updateFields.img = body.img;
     if (body.status) updateFields.status = body.status;
+    if (body.isFeatured) updateFields.isFeatured = body.isFeatured;
 
     // stats ONLY if user sends stats
     if (body.stats) {

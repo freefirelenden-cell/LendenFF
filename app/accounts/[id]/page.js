@@ -1,7 +1,5 @@
 "use client"
 
-
-
 import ImageSlider from "@/app/components/Slider";
 import LoadingSpinner from "@/app/components/ui/LoadingSpinner";
 import { getAccountById, getUserById } from "@/lib/apiClient";

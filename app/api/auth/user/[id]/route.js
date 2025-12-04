@@ -23,17 +23,18 @@ export async function PUT(req, context) {
   const { id } = params;
   const body = await req.json()
 
-
   await databaseConnection();
+  const updateUser = {}
+
+
+  if (body.phone !== undefined) updateUser.phone = body.phone;
+  if (body.role !== undefined) updateUser.role = body.role;
+  if (body.isTrusted !== undefined) updateUser.isTrusted = body.isTrusted;
 
   const user = await User.findOneAndUpdate({ authId: id },
     {
-      $set: {
-        phone: body.phone,
-        role: body.role
-      }
+      $set: updateUser
     }, { new: true });
-
   if (user) {
     return NextResponse.json({ message: "User synced", user });
   }

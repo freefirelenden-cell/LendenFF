@@ -40,7 +40,6 @@ const accountSchema = new mongoose.Schema(
 
     description: {
       type: String,
-      required: true,
     },
     stats: {
       level: { type: Number, default: 0 },

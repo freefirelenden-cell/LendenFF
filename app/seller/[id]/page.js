@@ -4,8 +4,9 @@
 import { getAccounts, getUserById } from "@/lib/apiClient";
 import AccountCard from "@/app/components/AccountCard";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import LoadingSpinner from "@/app/components/ui/LoadingSpinner";
+import Image from "next/image";
 
 export default function SellerPage({ params }) {
     const [accounts, setAccounts] = useState([])
@@ -18,9 +19,9 @@ export default function SellerPage({ params }) {
         async function load() {
             try {
                 const seller = await getUserById(id);
-                const acc = await getAccounts(id);
                 setSellerLabel(seller.user);
-                setAccounts(acc);
+                const acc = await getAccounts(id);
+                setAccounts(acc.accounts);
             } catch (err) {
                 console.error("Error loading seller or accounts:", err);
             } finally {
@@ -33,7 +34,9 @@ export default function SellerPage({ params }) {
 
 
     if (loading) {
-        return <LoadingSpinner size="xl" showText={true}/>
+        return <div className="h-[80vh] flex justify-center">
+            <LoadingSpinner size="xl" showText={true} />
+        </div>
     }
 
 
@@ -47,8 +50,14 @@ export default function SellerPage({ params }) {
                 <header className="mb-8">
 
                     <div className="flex items-center gap-1">
-                        <img height={50} width={50} className="rounded-full" src={sellerLabel.image} alt="" />
-                        <h1 className="text-3xl font-bold text-[var(--color-brand-yellow)]">
+                        <Image
+                            src={sellerLabel.image}
+                            alt={sellerLabel.name}
+                            width={50}
+                            height={50}
+                            className="rounded-full"
+                            unoptimized={false}
+                        />                        <h1 className="text-3xl font-bold text-[var(--color-brand-yellow)]">
                             {sellerLabel.name}
                         </h1>
                     </div>
@@ -67,14 +76,7 @@ export default function SellerPage({ params }) {
                             // AccountCard expects certain props; adapt as needed
                             <AccountCard
                                 key={acc._id || acc.id}
-                                account={{
-                                    _id: acc._id || acc.id,
-                                    title: acc.title,
-                                    rank: acc.rank,
-                                    price: `Rs ${acc.price}`,
-                                    img: acc.img && acc.img.length ? acc.img : ["/images/account.jpg"],
-                                    stats: acc.stats || {},
-                                }}
+                                account={acc}
                             />
                         ))}
                     </div>

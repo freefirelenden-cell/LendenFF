@@ -46,7 +46,7 @@ export default function AccountDetailsPage() {
 
 
 
-  if (!isLoadedUser) {
+  if (!isLoadedUser || isLoadedOrder) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <LoadingSpinner size="xl" showText={true} text="Loading checkout..." />
